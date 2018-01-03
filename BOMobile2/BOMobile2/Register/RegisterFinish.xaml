@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:t="clr-namespace:Extensions" 
+             x:Class="BOMobile2.RegisterFinish">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="labelIdentity" Text="{t:Translate Key=66}" />
+            <Entry x:Name="entryIdentity" Text="" 
+                   Keyboard="Text" 
+                   Placeholder="{t:Translate Key=66}" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+            <Label x:Name="labelBirthDate" Text="{t:Translate Key=64}" />
+            <DatePicker x:Name="datePickerBirthDate"></DatePicker>
+            <Label x:Name="labelCountry" Text="{t:Translate Key=47}" />
+            <Picker x:Name="pickerCountry" ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="pickerCountry_SelectedIndexChanged"></Picker>
+            <Label x:Name="labelCity" Text="{t:Translate Key=48}" />
+            <Picker x:Name="pickerCity" ItemDisplayBinding="{Binding Name}"></Picker>
+            <Button x:Name="buttonRegisterFinish" Text="{t:Translate Key=52}" Clicked="buttonRegisterFinish_Clicked"></Button> 
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

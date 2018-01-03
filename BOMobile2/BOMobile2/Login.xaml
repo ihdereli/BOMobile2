@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:t="clr-namespace:Extensions" 
+             x:Class="BOMobile2.Login"> 
+    <ContentPage.Content> 
+        <StackLayout Orientation="Vertical">
+            <Picker x:Name="pickerLanguages" Title="{t:Translate Key=33}" ItemDisplayBinding="{Binding Language}" SelectedIndexChanged="pickerLanguages_SelectedIndexChanged" />
+            <Label x:Name="captionEmail" Text="{t:Translate Key=31}" 
+                VerticalOptions="Start" 
+                HorizontalOptions="Fill" /> 
+            <Entry x:Name="entryEmail" Text="" 
+                   Keyboard="Email" 
+                   Placeholder="{t:Translate Key=31}" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+            <Label x:Name="captionPassword" Text="{t:Translate Key=34}" 
+                VerticalOptions="Start" 
+                HorizontalOptions="Fill" /> 
+            <Entry x:Name="entryPassword" Text="" 
+                   Keyboard="Text" 
+                   IsPassword="True" 
+                   Placeholder="{t:Translate Key=34}" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+            <Button x:Name="buttonLogin" Text="{t:Translate Key=35}" Clicked="buttonLogin_Clicked"></Button>
+            <Button x:Name="buttonRegister" Text="{t:Translate Key=50}" Clicked="buttonRegister_Clicked"></Button>
+            <Button x:Name="buttonForgetPassword" Text="{t:Translate Key=71}" Clicked="buttonForgetPassword_Clicked"></Button>
+            <Label x:Name="captionMessage" Text="" 
+                VerticalOptions="Start" 
+                HorizontalOptions="Fill" 
+                IsVisible="False" /> 
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

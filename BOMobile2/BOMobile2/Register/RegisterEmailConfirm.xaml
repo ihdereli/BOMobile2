@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:t="clr-namespace:Extensions" 
+             x:Class="BOMobile2.RegisterEmailConfirm">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="labelEmailConfirm" Text="{t:Translate Key=58}" />
+            <Entry x:Name="entryEmailConfirm" Text="" 
+                   Keyboard="Text" 
+                   Placeholder="{t:Translate Key=59}" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+            <Button x:Name="buttonVerifyEmail" Text="{t:Translate Key=60}" Clicked="buttonVerifyEmail_Clicked"></Button>
+            <Button x:Name="buttonVerifyByGsm" Text="{t:Translate Key=61}" Clicked="buttonVerifyByGsm_Clicked" VerticalOptions="End"></Button>
+            <Button x:Name="buttonVerifyLater" Text="{t:Translate Key=67}" Clicked="buttonVerifyLater_Clicked" VerticalOptions="End"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

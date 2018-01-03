@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+            xmlns:t="clr-namespace:Extensions" 
+            x:Class="BOMobile2.MainPage" 
+            Icon="letbit.png" 
+            Title="LETBIT">
+    <ContentPage Title="{t:Translate Key=37}" BackgroundImage="bg_black.jpg">
+        <ScrollView Orientation = "Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="50">
+            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                <Label Text="{t:Translate Key=36}" VerticalOptions="Start" HorizontalOptions="Fill" />
+                <ListView x:Name="MemberBalances" HasUnevenRows="True" HorizontalOptions="FillAndExpand">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.4*" />
+                                            <ColumnDefinition Width="0.6*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding CurrencyId}" Style="{StaticResource textBigStyle}"></Label>
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding BalanceText}" Style="{StaticResource numberBigStyle}"></Label>
+                                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding CurrencyName}" Style="{StaticResource textSmallStyle}"></Label>
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{t:Translate Key=43}" Style="{StaticResource textSmallStyle}" HorizontalOptions="End"></Label>
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage>
+    <ContentPage Title="{t:Translate Key=38}">
+        <ScrollView Orientation = "Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            
+        </ScrollView>
+    </ContentPage>
+    <ContentPage Title="{t:Translate Key=39}">
+        <ScrollView Orientation = "Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            
+        </ScrollView>
+    </ContentPage>
+</TabbedPage>
