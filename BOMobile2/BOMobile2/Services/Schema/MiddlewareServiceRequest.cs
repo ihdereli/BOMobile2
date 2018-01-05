@@ -29,8 +29,8 @@ namespace BOMobile2.Services.Schema
         [DataMember(Name = "lang")]
         public string lang { get; set; }
 
-        [DataMember(Name = "memberId")]
-        public int memberId { get; set; }
+        [DataMember(Name = "token")]
+        public string token { get; set; }
 
         [DataMember(Name = "data")]
         public T data { get; set; }
@@ -39,8 +39,14 @@ namespace BOMobile2.Services.Schema
     [DataContract(Name = "MemberBalances", Namespace = "Frontend")]
     public class MemberBalancesRequest
     {
-        [DataMember(Name = "Id")]
-        public int Id { get; set; }
+        [DataMember(Name = "CurrencyId")]
+        public string CurrencyId { get; set; }
+    }
+
+    [DataContract(Name = "MemberInfo", Namespace = "Frontend")]
+    public class MemberInfoRequest
+    {
+
     }
 
     [DataContract(Name = "GetCountries", Namespace = "Global")]
@@ -183,6 +189,26 @@ namespace BOMobile2.Services.Schema
 
         [DataMember(Name = "City")]
         public string City { get; set; }
+    }
+
+    [DataContract(Name = "MemberSendActivationCode", Namespace = "Frontend")]
+    public class MemberSendActivationRequest
+    {
+        [DataMember(Name = "VerificationIdentity")]
+        public string VerificationIdentity { get; set; }
+
+        [DataMember(Name = "Type")]
+        public string Type { get; set; }
+    }
+
+    [DataContract(Name = "MemberUpdatePassword", Namespace = "Frontend")]
+    public class MemberUpdatePasswordRequest
+    {
+        [DataMember(Name = "MemberId")]
+        public int MemberId { get; set; }
+
+        [DataMember(Name = "Password")]
+        public string Password { get; set; }
     }
 
     [DataContract(Name = "GetAllLanguages", Namespace = "Global")]

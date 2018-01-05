@@ -1,5 +1,6 @@
 ﻿using Acr.UserDialogs;
 using BOMobile2.Services.Schema;
+using Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,22 @@ namespace BOMobile2
             InitializeComponent();
         }
 
-        private async void buttonSendEmail_Clicked(object sender, EventArgs e)
+        private void buttonSendEmail_Clicked(object sender, EventArgs e)
         {
-            var data = await Global.DataService.Post<string, MemberRegisterSendVerificationSMSRequest>(new MemberRegisterSendVerificationSMSRequest
+            SendActivation(entryEmail.Text, "Email_FP");
+        }
+
+        private void buttonSendSMS_Clicked(object sender, EventArgs e)
+        {
+            SendActivation(entryGSM.Text, "GSM_FP");
+        }
+
+        private async void SendActivation(string verificationIdentity, string type)
+        {
+            var data = await Global.DataService.Post<int, MemberSendActivationRequest>(new MemberSendActivationRequest
             {
-                MemberId = MemberInfo.Id,
-                GSM = entryGsm.Text
+                VerificationIdentity = verificationIdentity,
+                Type = type
             });
 
             if (data.responseStatus == "ERROR")
@@ -33,13 +44,10 @@ namespace BOMobile2
             }
             else
             {
-                UserDialogs.Instance.ShowSuccess(TranslateExtension.Translate(53), 1000);
+                UserDialogs.Instance.ShowSuccess(TranslateExtension.Translate(74), 1000);
+
+                await Navigation.PushModalAsync(new VerifyActivation(data.data, type));
             }
-        }
-
-        private void buttonSendSMS_Clicked(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -27,7 +27,7 @@ namespace BOMobile2.Services
 
                 MobileRequestData<T2> requestData = new MobileRequestData<T2>();
                 requestData.lang = Global.Language;
-                requestData.memberId = Global.MemberInfo.Id;
+                requestData.token = Global.MemberInfo.Token;
                 requestData.data = data;
 
                 var jsonData = JsonConvert.SerializeObject(requestData);

@@ -89,7 +89,7 @@ namespace BOMobile2
 
             var data = await Global.DataService.Post<string, MemberRegisterFinishRequest>(new MemberRegisterFinishRequest
             {
-                MemberId = MemberInfo.Id, 
+                MemberId = (int)MemberInfo.Id, 
                 IdentityNumber = entryIdentity.Text, 
                 BirthDate = datePickerBirthDate.Date, 
                 Country = ((Country)pickerCountry.SelectedItem).Id, 

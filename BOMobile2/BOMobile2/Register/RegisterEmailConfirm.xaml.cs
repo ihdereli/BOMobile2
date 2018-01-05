@@ -33,7 +33,7 @@ namespace BOMobile2
         {
             var data = await Global.DataService.Post<MemberLoginInfo, MemberRegisterVerificationRequest>(new MemberRegisterVerificationRequest
             {
-                MemberId = MemberInfo.Id, 
+                MemberId = (int)MemberInfo.Id, 
                 Code = entryEmailConfirm.Text,
                 Type = "Email" 
             });

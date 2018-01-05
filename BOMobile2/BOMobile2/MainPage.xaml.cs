@@ -30,16 +30,16 @@ namespace BOMobile2
             });
         }
         
-        private void ShowSettings(object obj)
+        private async void ShowSettings(object obj)
         {
-
+            await Navigation.PushModalAsync(new MemberDetails());
         }
 
         protected async override void OnAppearing()
         {
             UserDialogs.Instance.ShowLoading(TranslateExtension.Translate(40) + "...", MaskType.Black);
 
-            var data = await Global.DataService.Post<List<MemberBalance>, MemberBalancesRequest>(new MemberBalancesRequest { Id = Global.MemberInfo.Id });
+            var data = await Global.DataService.Post<List<MemberBalance>, MemberBalancesRequest>(new MemberBalancesRequest { CurrencyId = null });
             
             MemberBalances.ItemsSource = data.data;
 

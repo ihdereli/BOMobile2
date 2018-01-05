@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:t="clr-namespace:Extensions" 
+             x:Class="BOMobile2.MemberDetails">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="labelName" Text="{t:Translate Key=44}" />
+            <Entry x:Name="entryName" Text="" 
+                   Keyboard="Text" 
+                   Placeholder="{t:Translate Key=44}" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+            <Label x:Name="labelSurname" Text="{t:Translate Key=45}" />
+            <Entry x:Name="entrySurname" Text="" 
+                   Keyboard="Text" 
+                   Placeholder="{t:Translate Key=45}" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+            <Label x:Name="labelEmail" Text="{t:Translate Key=31}" />
+            <Entry x:Name="entryEmail" Text="" 
+                   Keyboard="Email" 
+                   Placeholder="{t:Translate Key=31}" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+            <Label x:Name="labelGsm" Text="{t:Translate Key=46}" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Entry x:Name="entryGsm" Text="" 
+                    Keyboard="Telephone" 
+                    Placeholder="5xxxxxxxxx" 
+                    VerticalOptions="Start" 
+                    HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

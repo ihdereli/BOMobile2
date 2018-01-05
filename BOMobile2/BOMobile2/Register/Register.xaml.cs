@@ -3,6 +3,7 @@ using BOMobile2.Services.Schema;
 using Extensions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -108,18 +109,20 @@ namespace BOMobile2
         {
             if (!Validation()) return;
 
-            var r = System.Globalization.RegionInfo.CurrentRegion;
+            var c = (Country)pickerPhoneCode.SelectedItem;
 
+            var r = new RegionInfo(c.IsoCode);
+            
             var data = await Global.DataService.Post<MemberLoginInfo, MemberRegisterFirstRequest>(new MemberRegisterFirstRequest
             {
                 Language = Global.Language,
                 Name = entryName.Text,
                 Surname = entrySurname.Text,
                 Email = entryEmail.Text,
-                Gsm = entryGsm.Text,
+                Gsm = "+" + c.PhoneCode + entryGsm.Text,
                 Password = entryPassword.Text,
                 Currency = r.ISOCurrencySymbol,
-                CountryCodeTwoLetter = r.TwoLetterISORegionName.ToLower(),
+                Country = c.Id 
             });
 
             if (data.responseStatus == "ERROR")

@@ -28,7 +28,7 @@ namespace BOMobile2
         {
             var data = await Global.DataService.Post<string, MemberRegisterSendVerificationSMSRequest>(new MemberRegisterSendVerificationSMSRequest
             {
-                MemberId = MemberInfo.Id,
+                MemberId = (int)MemberInfo.Id,
                 GSM = entryGsm.Text 
             });
 
@@ -49,7 +49,7 @@ namespace BOMobile2
         {
             var data = await Global.DataService.Post<string, MemberRegisterVerificationRequest>(new MemberRegisterVerificationRequest
             {
-                MemberId = MemberInfo.Id,
+                MemberId = (int)MemberInfo.Id,
                 Code = entrySMSConfirm.Text,
                 Type = "GSM"
             });
