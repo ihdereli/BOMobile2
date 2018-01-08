@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -42,9 +41,9 @@ namespace BOMobile2
             var data = await Global.DataService.Post<List<MemberBalance>, MemberBalancesRequest>(new MemberBalancesRequest { CurrencyId = null });
             
             MemberBalances.ItemsSource = data.data;
-
+            
             base.OnAppearing();
-
+            
             UserDialogs.Instance.HideLoading();
         }
     }

@@ -62,7 +62,7 @@ namespace BOMobile2.Services
             catch (Exception ex)
             {
                 ex.ToString();
-
+                
                 responseObj.errorCode = ex.HResult.ToString();
                 responseObj.errorDefiniton = ex.Message;
                 responseObj.responseStatus = "ERROR";

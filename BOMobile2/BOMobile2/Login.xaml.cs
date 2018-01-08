@@ -47,22 +47,31 @@ namespace BOMobile2
         {
             UserDialogs.Instance.ShowLoading(TranslateExtension.Translate(40) + "...", MaskType.Black);
 
-            var data = await Global.DataService.Post<List<MemberLoginInfo>, MemberLoginRequest>(new MemberLoginRequest { Email = entryEmail.Text, Password = entryPassword.Text });
-
-            if (data.responseStatus == "OK" && data.data.Count > 0)
+            try
             {
-                Global.MemberInfo = data.data[0];
+                var data = await Global.DataService.Post<List<MemberLoginInfo>, MemberLoginRequest>(new MemberLoginRequest { Email = entryEmail.Text, Password = entryPassword.Text });
 
-                App.Current.MainPage = new NavigationPage(new MainPage());
+                if (data.responseStatus == "OK" && data.data.Count > 0)
+                {
+                    Global.MemberInfo = data.data[0];
+
+                    //App.Current.MainPage = new NavigationPage(new MainPage());
+                }
+                else
+                {
+                    captionMessage.Text = TranslateExtension.Translate(13);
+                    captionMessage.TextColor = Color.Red;
+                    captionMessage.IsVisible = true;
+                }
+
+                UserDialogs.Instance.HideLoading();
             }
-            else
+            catch (Exception ex)
             {
-                captionMessage.Text = TranslateExtension.Translate(13);
-                captionMessage.TextColor = Color.Red;
-                captionMessage.IsVisible = true;
-            }
+                UserDialogs.Instance.ShowError(ex.ToString(), 2000);
 
-            UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.HideLoading();
+            }
         }
 
         private async void buttonRegister_Clicked(object sender, EventArgs e)
