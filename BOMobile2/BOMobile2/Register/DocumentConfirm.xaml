@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:t="clr-namespace:Extensions" 
+             x:Class="BOMobile2.DocumentConfirm"> 
+    <ContentPage.Content>
+        <ScrollView Orientation = "Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="50">
+            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                <Image x:Name="PhotoImage" />
+                <ProgressBar 
+                    x:Name="progressBar"
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="FillAndExpand" 
+                    IsVisible="False" />
+                <Button x:Name="AcceptButton" Text="{t:Translate Key=99}" Clicked="AcceptButton_Clicked" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

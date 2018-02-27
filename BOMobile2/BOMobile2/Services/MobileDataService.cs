@@ -15,10 +15,11 @@ namespace BOMobile2.Services
     public class MobileDataService
     {
         private static string mwurl = "http://169.254.138.176:9100/CRequest?format=json&";
+        //private static string mwurl = "http://62.75.254.33:9100/CRequest?format=json&";
 
         public async Task<MobileResponseData<T1>> Post<T1, T2>(T2 data)
         {
-            MobileResponseData<T1> responseObj = new MobileResponseData<T1>();
+            MobileResponseData<T1> responseObj = new MobileResponseData<T1>() ;
 
             try
             {

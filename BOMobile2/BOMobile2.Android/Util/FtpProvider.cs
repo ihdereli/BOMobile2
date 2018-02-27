@@ -22,19 +22,18 @@ namespace BOMobile2.Droid.Util
 
         }
 
-        public FtpResult UploadFile(Stream image)
+        public FtpResult<object> UploadFile(Stream image, int documentId)
         {
-            FtpResult result = new FtpResult();
+            FtpResult<object> result = new FtpResult<object>();
             result.Status = "Processing";
             result.Debug = 0;
             result.Error = "";
 
             try
             {
-                string ftpHost = "ftp://ftp.newartzone.uqqsvjr7dj8cngkz9pnz.netdna-cdn.com";
                 string ftpUser = "newartzone.uqqsvjr7dj8cngkz9pnz";
                 string ftpPassword = "asdzxc123";
-                string ftpfullpath = "ftp://ftp.newartzone.uqqsvjr7dj8cngkz9pnz.netdna-cdn.com/testme123.jpg";
+                string ftpfullpath = "ftp://ftp.newartzone.uqqsvjr7dj8cngkz9pnz.netdna-cdn.com/documents/" + documentId.ToString() + ".png";
 
                 FtpWebRequest ftp = (FtpWebRequest)FtpWebRequest.Create(ftpfullpath);
 
@@ -72,6 +71,40 @@ namespace BOMobile2.Droid.Util
                 result.Debug = 8;
 
                 ftpstream.Flush();
+
+                result.Debug = 99;
+
+                result.Status = "OK";
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+
+                result.Status = "ERROR";
+                result.Error = ex.Message;
+            }
+
+            return result;
+        }
+        
+        public FtpResult<Xamarin.Forms.ImageSource> DownloadImage(string fileName)
+        {
+            FtpResult<Xamarin.Forms.ImageSource> result = new FtpResult<Xamarin.Forms.ImageSource>();
+            result.Status = "Processing";
+            result.Debug = 0;
+            result.Error = "";
+            result.Data = null;
+
+            try
+            {
+                string ftpfullpath = "http://newartsolutions-uqqsvjr7dj8cngkz9pnz.netdna-ssl.com/assets/" + fileName;
+
+                WebClient wc = new WebClient();
+
+                Stream s = new MemoryStream();
+                byte[] data = wc.DownloadData(ftpfullpath);
+                s.Write(data, 0, data.Length);
+                result.Data = Xamarin.Forms.ImageSource.FromStream(() => { return s; });
 
                 result.Debug = 99;
 

@@ -24,6 +24,17 @@ namespace BOMobile2
             MemberInfo = _member;
         }
 
+        protected async override void OnAppearing()
+        {
+            UserDialogs.Instance.ShowLoading(TranslateExtension.Translate(40) + "...", MaskType.Black);
+
+            entryGsm.Text = MemberInfo.Gsm;
+
+            base.OnAppearing();
+
+            UserDialogs.Instance.HideLoading();
+        }
+
         private async void buttonSendVerificationGSM_Clicked(object sender, EventArgs e)
         {
             var data = await Global.DataService.Post<string, MemberRegisterSendVerificationSMSRequest>(new MemberRegisterSendVerificationSMSRequest
@@ -38,7 +49,13 @@ namespace BOMobile2
             }
             else
             {
-                UserDialogs.Instance.ShowSuccess(TranslateExtension.Translate(53), 1000);
+                if (Global.IsTest)
+                {
+                    var data2 = await Global.DataService.Post<string, TestGetActivationRequest>(new TestGetActivationRequest { MemberId = (int)MemberInfo.Id });
+
+                    labelSMSShowKey.IsVisible = true;
+                    labelSMSShowKey.Text = data2.data;
+                }
 
                 slGSM.IsVisible = false;
                 slSMS.IsVisible = true;
@@ -47,7 +64,7 @@ namespace BOMobile2
 
         private async void buttonVerificateSMS_Clicked(object sender, EventArgs e)
         {
-            var data = await Global.DataService.Post<string, MemberRegisterVerificationRequest>(new MemberRegisterVerificationRequest
+            var data = await Global.DataService.Post<MemberLoginInfo, MemberRegisterVerificationRequest>(new MemberRegisterVerificationRequest
             {
                 MemberId = (int)MemberInfo.Id,
                 Code = entrySMSConfirm.Text,

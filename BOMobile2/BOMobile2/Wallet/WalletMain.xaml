@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BOMobile2.Wallet.WalletMain" 
+             xmlns:t="clr-namespace:Extensions" 
+             NavigationPage.HasBackButton="True" 
+             NavigationPage.HasNavigationBar="True" 
+             NavigationPage.TitleIcon="letbit.png"
+             Title="LETBIT WALLET" 
+             BackgroundImage="bg_black.jpg">
+    <ContentPage.Content>
+        <StackLayout>
+            <ScrollView Orientation = "Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="10">
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                    <Label Text="{t:Translate Key=36}" VerticalOptions="Start" HorizontalOptions="FillAndExpand" />
+                    <ListView x:Name="MemberBalances" HasUnevenRows="True" HorizontalOptions="FillAndExpand" ItemTapped="MemberBalances_ItemTapped">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.3*" />
+                                                <ColumnDefinition Width="0.7*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding CurrencyId}" Style="{StaticResource textBigStyle}"></Label>
+                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding BalanceText}" Style="{StaticResource numberBigStyle}"></Label>
+                                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding CurrencyName}" Style="{StaticResource textSmallStyle}"></Label>
+                                            <Label Grid.Row="1" Grid.Column="1" Text="{t:Translate Key=43}" Style="{StaticResource textSmallStyle}" HorizontalOptions="End"></Label>
+                                        </Grid>
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+            <StackLayout x:Name="slCoin" Orientation="Horizontal" IsVisible="False">
+                <Button x:Name="buttonSendRecieve" Text="{t:Translate Key=192}" Clicked="buttonSendRecieve_Clicked" FontAttributes="Bold" FontSize="Large" BackgroundColor="WhiteSmoke" TextColor="Black" BorderColor="Gray" BorderRadius="20" BorderWidth="1"></Button>
+                <Button x:Name="buttonBuySell" Text="{t:Translate Key=190}" Clicked="buttonBuySell_Clicked" FontAttributes="Bold" FontSize="Large" BackgroundColor="WhiteSmoke" TextColor="Black" BorderColor="Gray" BorderRadius="20" BorderWidth="1"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

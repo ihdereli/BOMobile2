@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:t="clr-namespace:Extensions" 
+             x:Class="BOMobile2.Documents" Title="{t:Translate Key=95}">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Black">
+            <Label Text="{t:Translate Key=95}" TextColor="White" FontSize="Large" />
+            <ScrollView Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Black">
+                <ListView x:Name="DocumentConfirmationList" HasUnevenRows="True" VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Margin="2">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Grid BackgroundColor="White" ColumnSpacing="5" RowSpacing="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.55*" />
+                                            <ColumnDefinition Width="0.45*" />
+                                        </Grid.ColumnDefinitions>
+                                        <BoxView Color="{Binding BGColor}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Margin="1" />
+                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding TypeName}" Style="{StaticResource textBigStyle}" Margin="3"></Label>
+                                        <Button Grid.Row="0" Grid.Column="1" Text="{t:Translate Key=96}" Image="camera.png" IsEnabled="{Binding Open}" CommandParameter="{Binding Type}" Margin="3" FontSize="Small" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="LightBlue" Clicked="ButtonFromCamera_Clicked"></Button>
+                                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding StatusText}" Style="{StaticResource textSmallStyle}" Margin="3"></Label>
+                                        <Button Grid.Row="1" Grid.Column="1" Text="{t:Translate Key=97}" Image="gallery.png" IsEnabled="{Binding Open}" CommandParameter="{Binding Type}" Margin="3" FontSize="Small" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Azure" Clicked="ButtonFromGallery_Clicked"></Button>
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

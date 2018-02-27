@@ -112,7 +112,9 @@ namespace BOMobile2
             var c = (Country)pickerPhoneCode.SelectedItem;
 
             var r = new RegionInfo(c.IsoCode);
-            
+
+            var encryptedPass = Global.Encrypt.EncryptText(entryPassword.Text);
+
             var data = await Global.DataService.Post<MemberLoginInfo, MemberRegisterFirstRequest>(new MemberRegisterFirstRequest
             {
                 Language = Global.Language,
@@ -120,7 +122,7 @@ namespace BOMobile2
                 Surname = entrySurname.Text,
                 Email = entryEmail.Text,
                 Gsm = "+" + c.PhoneCode + entryGsm.Text,
-                Password = entryPassword.Text,
+                Password = encryptedPass,
                 Currency = r.ISOCurrencySymbol,
                 Country = c.Id 
             });

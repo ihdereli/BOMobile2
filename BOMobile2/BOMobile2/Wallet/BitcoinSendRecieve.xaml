@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="BOMobile2.Wallet.BitcoinSendRecieve" 
+             xmlns:t="clr-namespace:Extensions">
+    <ContentPage Title="{t:Translate Key=38}">
+        <ScrollView Orientation = "Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                <Label x:Name="labelRecieveAddress" Text="" />
+                <Frame x:Name="fBarcode" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></Frame>
+                <Label x:Name="labelGiveMessage" Text="..." HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                <Button x:Name="buttonGive" Text="TEST 1 BITCOIN VER" FontAttributes="Bold" FontSize="Large" BackgroundColor="WhiteSmoke" TextColor="Black" BorderColor="Gray" BorderRadius="20" BorderWidth="1" Clicked="buttonGive_Clicked"></Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage>
+    <ContentPage Title="{t:Translate Key=39}">
+        <ScrollView Orientation = "Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"> 
+            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand"> 
+                <Label x:Name="labelSendAddress" Text="{t:Translate Key=184}" /> 
+                <Entry x:Name="entrySendAddress" Text="" 
+                   Keyboard="Numeric" 
+                   Placeholder="" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+                <Button x:Name="buttonScan" Text="{t:Translate Key=230}" FontAttributes="Bold" FontSize="Large" BackgroundColor="WhiteSmoke" TextColor="Black" BorderColor="Gray" BorderRadius="20" BorderWidth="1" Clicked="buttonScan_Clicked"></Button>
+                <Label x:Name="labelSendCoinAmount" Text="{t:Translate Key=220}" /> 
+                <Entry x:Name="entrySendCoinAmount" Text="" 
+                   Keyboard="Numeric" 
+                   Placeholder="0,00" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+                <Label x:Name="labelSendMessage" Text="..." HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                <Button x:Name="buttonSend" Text="{t:Translate Key=229}" FontAttributes="Bold" FontSize="Large" BackgroundColor="WhiteSmoke" TextColor="Black" BorderColor="Gray" BorderRadius="20" BorderWidth="1" Clicked="buttonSend_Clicked"></Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage>
+</TabbedPage>

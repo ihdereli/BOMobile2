@@ -6,77 +6,94 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace BOMobile2
+namespace BOMobile2.Wallet
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : TabbedPage
+    public partial class DepositWithdraw : TabbedPage
     {
-        public MainPage()
+        private string currency;
+
+        private string Currency
+        {
+            get
+            {
+                if (currency != null) return currency;
+
+                try
+                {
+                    if (this.CurrentPage.Title == TranslateExtension.Translate(147))
+                    {
+                        return ((Currency)pickerDepositCurrency.SelectedItem).Id;
+                    }
+                    else
+                    {
+                        return ((Currency)pickerWithdrawCurrency.SelectedItem).Id;
+                    }
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+
+        public DepositWithdraw()
         {
             InitializeComponent();
-            
-            BarBackgroundColor = Color.Black;
-            BarTextColor = Color.White;
 
-            ToolbarItems.Add(new ToolbarItem
-            {
-                Icon = "accountSettings.png", 
-                Text = "Menu", 
-                Command = new Command(this.ShowSettings), 
-            });
-
-            ToolbarItems.Add(new ToolbarItem
-            {
-                Icon = "camera.png",
-                Text = "Camera",
-                Command = new Command(this.CameraTest),
-            });
-        }
-        
-        private async void ShowSettings(object obj)
-        {
-            await Navigation.PushModalAsync(new MemberDetails());
+            currency = null;
         }
 
-        private async void CameraTest(object obj)
+        public DepositWithdraw(string _currency)
         {
-            await Navigation.PushModalAsync(new Documents());
+            InitializeComponent();
+
+            currency = _currency;
         }
 
         protected async override void OnAppearing()
         {
             UserDialogs.Instance.ShowLoading(TranslateExtension.Translate(40) + "...", MaskType.Black);
 
-            var dataDepositCurrency = await Global.DataService.Post<List<Currency>, GetDepositCurrenciesRequest>(new GetDepositCurrenciesRequest { });
+            if (currency == null)
+            {
+                var dataDepositCurrency = await Global.DataService.Post<List<Currency>, GetDepositCurrenciesRequest>(new GetDepositCurrenciesRequest { });
 
-            pickerDepositCurrency.ItemsSource = dataDepositCurrency.data;
+                pickerDepositCurrency.ItemsSource = dataDepositCurrency.data;
 
-            var dataWithdrawCurrency = await Global.DataService.Post<List<Currency>, GetWithdrawCurrenciesRequest>(new GetWithdrawCurrenciesRequest { MemberId = (int)Global.MemberInfo.Id });
+                var dataWithdrawCurrency = await Global.DataService.Post<List<Currency>, GetWithdrawCurrenciesRequest>(new GetWithdrawCurrenciesRequest { MemberId = (int)Global.MemberInfo.Id });
 
-            pickerWithdrawCurrency.ItemsSource = dataWithdrawCurrency.data;
+                pickerWithdrawCurrency.ItemsSource = dataWithdrawCurrency.data;
+            }
+            else
+            {
+                pickerDepositCurrency.IsVisible = false;
+                pickerWithdrawCurrency.IsVisible = false;
+                labelDepositCurrency.IsVisible = false;
+                labelWithdrawCurrency.IsVisible = false;
 
-            RefreshBalances();
+                labelDepositSelectedCurrency.IsVisible = true;
+                labelWithdrawSelectedCurrency.IsVisible = true;
+
+                labelDepositSelectedCurrency.Text = currency;
+                labelWithdrawSelectedCurrency.Text = currency;
+
+                pickerDepositCurrency_SelectedIndexChanged(null, null);
+                pickerWithdrawCurrency_SelectedIndexChanged(null, null);
+            }
 
             base.OnAppearing();
-            
+
             UserDialogs.Instance.HideLoading();
         }
-
-        private async void RefreshBalances()
-        {
-            var dataBalance = await Global.DataService.Post<List<MemberBalance>, MemberBalancesRequest>(new MemberBalancesRequest { CurrencyId = null });
-
-            MemberBalances.ItemsSource = dataBalance.data;
-        }
-
+        
         private async void pickerDepositCurrency_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var _currency = ((Currency)pickerDepositCurrency.SelectedItem).Id;
-
-            var dataBanka = await Global.DataService.Post<List<Bank>, GetDepositBanksRequest>(new GetDepositBanksRequest { Currency = _currency });
+            var dataBanka = await Global.DataService.Post<List<Bank>, GetDepositBanksRequest>(new GetDepositBanksRequest { Currency = Currency });
 
             pickerDepositBanka.ItemsSource = dataBanka.data;
         }
@@ -84,7 +101,7 @@ namespace BOMobile2
         string transactionCode = "";
         public async void buttonDepositOrder_Clicked(object sender, EventArgs e)
         {
-            if (pickerDepositCurrency.SelectedItem == null)
+            if (Currency == null)
             {
                 labelDepositMessage.Text = "Lütfen önce para birimi seçin.";
                 return;
@@ -110,11 +127,11 @@ namespace BOMobile2
             
             var data = await Global.DataService.Post<string, BankOperationInsertRequest>(new BankOperationInsertRequest
             {
-                FinancialMethod = 1, 
-                Currency = ((Currency)pickerDepositCurrency.SelectedItem).Id, 
-                BankAccountId = ((Bank)pickerDepositBanka.SelectedItem).Id, 
-                Amount = _amount, 
-                NoteText = "" 
+                FinancialMethod = 1,
+                Currency = Currency,
+                BankAccountId = ((Bank)pickerDepositBanka.SelectedItem).Id,
+                Amount = _amount,
+                NoteText = ""
             });
 
             if (data.responseStatus == "ERROR")
@@ -148,7 +165,7 @@ namespace BOMobile2
 
             var data = await Global.DataService.Post<string, BankOperationUpdateRequest>(new BankOperationUpdateRequest
             {
-                TransactionCode = transactionCode, 
+                TransactionCode = transactionCode,
                 AcceptedAmount = _amount
             });
 
@@ -160,22 +177,20 @@ namespace BOMobile2
             {
                 UserDialogs.Instance.ShowSuccess(TranslateExtension.Translate(53), 1000);
 
-                RefreshBalances();
+                //RefreshBalances();
             }
         }
 
         private async void pickerWithdrawCurrency_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var _currency = ((Currency)pickerWithdrawCurrency.SelectedItem).Id;
-
-            var dataBanka = await Global.DataService.Post<List<Bank>, GetWithdrawBanksRequest>(new GetWithdrawBanksRequest { Currency = _currency, MemberId = (int)Global.MemberInfo.Id });
+            var dataBanka = await Global.DataService.Post<List<Bank>, GetWithdrawBanksRequest>(new GetWithdrawBanksRequest { Currency = Currency, MemberId = (int)Global.MemberInfo.Id });
 
             pickerWithdrawBanka.ItemsSource = dataBanka.data;
         }
-        
+
         public async void buttonWithdrawOrder_Clicked(object sender, EventArgs e)
         {
-            if (pickerWithdrawCurrency.SelectedItem == null)
+            if (Currency == null)
             {
                 labelWithdrawMessage.Text = "Lütfen önce para birimi seçin.";
                 return;
@@ -198,11 +213,11 @@ namespace BOMobile2
                 labelWithdrawMessage.Text = "Lütfen önce bir miktar yazın.";
                 return;
             }
-
+            
             var data = await Global.DataService.Post<string, BankOperationInsertRequest>(new BankOperationInsertRequest
             {
                 FinancialMethod = 2,
-                Currency = ((Currency)pickerWithdrawCurrency.SelectedItem).Id,
+                Currency = Currency,
                 BankAccountId = ((Bank)pickerWithdrawBanka.SelectedItem).Id,
                 Amount = _amount,
                 NoteText = ""
@@ -251,7 +266,7 @@ namespace BOMobile2
             {
                 UserDialogs.Instance.ShowSuccess(TranslateExtension.Translate(53), 1000);
 
-                RefreshBalances();
+                //RefreshBalances();
             }
         }
     }

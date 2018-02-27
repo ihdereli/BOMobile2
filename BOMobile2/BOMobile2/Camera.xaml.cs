@@ -58,7 +58,7 @@ namespace BOMobile2
 
         private void SendButton_Clicked(object sender, EventArgs e)
         {
-            var result = Global.Ftp.UploadFile(image);
+            var result = Global.Ftp.UploadFile(image, 0);
 
             UserDialogs.Instance.ShowError(result.Status + ";" + result.Debug + (result.Status == "ERROR" ? (";" + result.Error) : ""), 3000);
         }

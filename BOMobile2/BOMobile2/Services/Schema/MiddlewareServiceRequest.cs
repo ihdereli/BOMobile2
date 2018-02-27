@@ -36,6 +36,42 @@ namespace BOMobile2.Services.Schema
         public T data { get; set; }
     }
 
+    [DataContract(Name = "GetUserCurrencies", Namespace = "Frontend")]
+    public class GetUserCurrenciesRequest
+    {
+
+    }
+
+    [DataContract(Name = "GetDepositCurrencies", Namespace = "Frontend")]
+    public class GetDepositCurrenciesRequest
+    {
+
+    }
+
+    [DataContract(Name = "GetWithdrawCurrencies", Namespace = "Frontend")]
+    public class GetWithdrawCurrenciesRequest
+    {
+        [DataMember(Name = "MemberId")]
+        public int MemberId { get; set; }
+    }
+
+    [DataContract(Name = "GetDepositBanks", Namespace = "Frontend")]
+    public class GetDepositBanksRequest
+    {
+        [DataMember(Name = "Currency")]
+        public string Currency { get; set; }
+    }
+
+    [DataContract(Name = "GetWithdrawBanks", Namespace = "Frontend")]
+    public class GetWithdrawBanksRequest
+    {
+        [DataMember(Name = "Currency")]
+        public string Currency { get; set; }
+
+        [DataMember(Name = "MemberId")]
+        public int MemberId { get; set; }
+    }
+
     [DataContract(Name = "MemberBalances", Namespace = "Frontend")]
     public class MemberBalancesRequest
     {
@@ -43,10 +79,46 @@ namespace BOMobile2.Services.Schema
         public string CurrencyId { get; set; }
     }
 
+    [DataContract(Name = "MemberDocuments", Namespace = "Frontend")]
+    public class MemberDocumentsListRequest
+    {
+
+    }
+
+    [DataContract(Name = "MemberDocumentAdd", Namespace = "Frontend")]
+    public class MemberDocumentAddRequest
+    {
+        [DataMember(Name = "type")]
+        public int Type { get; set; }
+    }
+
+    [DataContract(Name = "MemberDocumentUpdate", Namespace = "Frontend")]
+    public class MemberDocumentUpdateRequest
+    {
+        [DataMember(Name = "documentId")]
+        public long DocumentId { get; set; }
+
+        [DataMember(Name = "status")]
+        public int Status { get; set; }
+    }
+
     [DataContract(Name = "MemberInfo", Namespace = "Frontend")]
     public class MemberInfoRequest
     {
 
+    }
+
+    [DataContract(Name = "MemberGetBitcoinAddress", Namespace = "Frontend")]
+    public class MemberGetBitcoinAddressRequest
+    {
+
+    }
+    
+    [DataContract(Name = "MemberTestGetActivation", Namespace = "Frontend")]
+    public class TestGetActivationRequest
+    {
+        [DataMember(Name = "MemberId")]
+        public int MemberId { get; set; }
     }
 
     [DataContract(Name = "GetCountries", Namespace = "Global")]
@@ -226,5 +298,67 @@ namespace BOMobile2.Services.Schema
     {
         [DataMember(Name = "Language")]
         public string Language { get; set; }
+    }
+
+    [DataContract(Name = "BankOperationInsert", Namespace = "Frontend")]
+    public class BankOperationInsertRequest
+    {
+        [DataMember(Name = "FinancialMethod")]
+        public int FinancialMethod { get; set; }
+
+        [DataMember(Name = "Currency")]
+        public string Currency { get; set; }
+
+        [DataMember(Name = "BankAccountId")]
+        public int BankAccountId { get; set; }
+
+        [DataMember(Name = "Amount")]
+        public decimal Amount { get; set; }
+
+        [DataMember(Name = "NoteText")]
+        public string NoteText { get; set; }
+    }
+
+    [DataContract(Name = "BankOperationUpdate", Namespace = "Frontend")]
+    public class BankOperationUpdateRequest
+    {
+        [DataMember(Name = "TransactionCode")]
+        public string TransactionCode { get; set; }
+
+        [DataMember(Name = "AcceptedAmount")]
+        public decimal AcceptedAmount { get; set; }
+    }
+
+    [DataContract(Name = "MemberGiveCoin", Namespace = "Frontend")]
+    public class MemberGiveCoinRequest
+    {
+        [DataMember(Name = "CoinCurrency")]
+        public string CoinCurrency { get; set; }
+
+        [DataMember(Name = "Address")]
+        public string Address { get; set; }
+
+        [DataMember(Name = "Amount")]
+        public decimal Amount { get; set; }
+    }
+
+    [DataContract(Name = "MemberSendCoin", Namespace = "Frontend")]
+    public class MemberSendCoinRequest
+    {
+        [DataMember(Name = "CoinCurrency")]
+        public string CoinCurrency { get; set; }
+
+        [DataMember(Name = "Address")]
+        public string Address { get; set; }
+
+        [DataMember(Name = "Amount")]
+        public decimal Amount { get; set; }
+    }
+
+    [DataContract(Name = "MemberGetSendCoinOperations", Namespace = "Frontend")]
+    public class MemberGetSendCoinOperationsRequest
+    {
+        [DataMember(Name = "CoinCurrency")]
+        public string CoinCurrency { get; set; }
     }
 }

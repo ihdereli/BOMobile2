@@ -31,6 +31,13 @@ namespace BOMobile2
 
             pickerLanguages.ItemsSource = data.data;
 
+            var pp = Global.Ftp.DownloadImage("flags/" + Global.Language + ".png");
+
+            if (pp.Status == "OK")
+            {
+                PhotoFlag.Source = pp.Data;
+            }
+
             base.OnAppearing();
 
             UserDialogs.Instance.HideLoading();
@@ -40,22 +47,41 @@ namespace BOMobile2
         {
             Global.Language = ((Languages)pickerLanguages.SelectedItem).Id;
 
+            Plugin.Settings.CrossSettings.Current.AddOrUpdateValue("UserLanguage", Global.Language);
+
             App.Current.MainPage = new NavigationPage(new Loading());
         }
 
-        private async void buttonLogin_Clicked(object sender, EventArgs e)
+        private void buttonLogin_Clicked(object sender, EventArgs e)
+        {
+            Global.Letbit = true;
+            login();
+        }
+
+        private void buttonLogin2_Clicked(object sender, EventArgs e)
+        {
+            Global.Letbit = false;
+            login();
+        }
+
+        private async void login()
         {
             UserDialogs.Instance.ShowLoading(TranslateExtension.Translate(40) + "...", MaskType.Black);
 
             try
             {
-                var data = await Global.DataService.Post<List<MemberLoginInfo>, MemberLoginRequest>(new MemberLoginRequest { Email = entryEmail.Text, Password = entryPassword.Text });
+                var encryptedPass = Global.Encrypt.EncryptText(entryPassword.Text);
+
+                var data = await Global.DataService.Post<List<MemberLoginInfo>, MemberLoginRequest>(new MemberLoginRequest { Email = entryEmail.Text, Password = encryptedPass });
 
                 if (data.responseStatus == "OK" && data.data.Count > 0)
                 {
                     Global.MemberInfo = data.data[0];
 
-                    //App.Current.MainPage = new NavigationPage(new MainPage());
+                    if (Global.Letbit)
+                        App.Current.MainPage = new NavigationPage(new MainPage());
+                    else
+                        App.Current.MainPage = new NavigationPage(new Wallet.WalletMain());
                 }
                 else
                 {

@@ -11,6 +11,7 @@
                    Placeholder="{t:Translate Key=59}" 
                    VerticalOptions="Start" 
                    HorizontalOptions="Fill" />
+            <Label x:Name="labelEmailShowKey" TextColor="Gray" Text="" IsVisible="False"></Label>
             <Button x:Name="buttonVerifyEmail" Text="{t:Translate Key=60}" Clicked="buttonVerifyEmail_Clicked"></Button>
             <Button x:Name="buttonVerifyByGsm" Text="{t:Translate Key=61}" Clicked="buttonVerifyByGsm_Clicked" VerticalOptions="End"></Button>
             <Button x:Name="buttonVerifyLater" Text="{t:Translate Key=67}" Clicked="buttonVerifyLater_Clicked" VerticalOptions="End"></Button>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BOMobile2.Wallet.CoinShop" 
+             xmlns:t="clr-namespace:Extensions">
+    <ContentPage Title="{t:Translate Key=38}">
+        <ScrollView Orientation = "Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                <Label x:Name="labelBuyCurrency" Text="{t:Translate Key=133}" />
+                <Picker x:Name="pickerBuyCurrency" ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="pickerBuyCurrency_SelectedIndexChanged"></Picker>
+                <Label x:Name="labelBuyCurrencyAmount" Text="{t:Translate Key=200}" />
+                <Entry x:Name="entryBuyCurrencyAmount" TextChanged="entryBuyCurrencyAmount_TextChanged" Text="0,00" 
+                   Keyboard="Numeric" 
+                   Placeholder="0,00" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+                <Label x:Name="labelBuyCoinAmount" Text="{t:Translate Key=220}" />
+                <Entry x:Name="entryBuyCoinAmount" TextChanged="entryBuyCoinAmount_TextChanged" Text="0,00" 
+                   Keyboard="Numeric" 
+                   Placeholder="0,00" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+                <Label x:Name="labelBuyMessage" Text="..." HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                <Button x:Name="buttonBuyOrder" Text="{t:Translate Key=38}" FontAttributes="Bold" FontSize="Large" BackgroundColor="WhiteSmoke" TextColor="Black" BorderColor="Gray" BorderRadius="20" BorderWidth="1" Clicked="buttonBuy_Clicked"></Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage>
+    <ContentPage Title="{t:Translate Key=39}">
+        <ScrollView Orientation = "Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                <Label x:Name="labelSellCoinAmount" Text="{t:Translate Key=220}" />
+                <Entry x:Name="entrySellCoinAmount" TextChanged="entrySellCoinAmount_TextChanged" Text="0,00" 
+                   Keyboard="Numeric" 
+                   Placeholder="0,00" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+                <Label x:Name="labelSellCurrency" Text="{t:Translate Key=133}" />
+                <Picker x:Name="pickerSellCurrency" ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="pickerSellCurrency_SelectedIndexChanged"></Picker>
+                <Label x:Name="labelSellCurrencyAmount" Text="{t:Translate Key=200}" />
+                <Entry x:Name="entrySellCurrencyAmount" TextChanged="entrySellCurrencyAmount_TextChanged" Text="0,00" 
+                   Keyboard="Numeric" 
+                   Placeholder="0,00" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Fill" />
+                <Label x:Name="labelSellMessage" Text="..." HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                <Button x:Name="buttonSellOrder" Text="{t:Translate Key=39}" FontAttributes="Bold" FontSize="Large" BackgroundColor="WhiteSmoke" TextColor="Black" BorderColor="Gray" BorderRadius="20" BorderWidth="1" Clicked="buttonSell_Clicked"></Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage>
+</TabbedPage>

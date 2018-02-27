@@ -1,48 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-            xmlns:t="clr-namespace:Extensions" 
-            x:Class="BOMobile2.MainPage" 
-            Icon="letbit.png" 
-            Title="LETBIT">
-    <ContentPage Title="{t:Translate Key=37}" BackgroundImage="bg_black.jpg">
-        <ScrollView Orientation = "Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="50">
-            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                <Label Text="{t:Translate Key=36}" VerticalOptions="Start" HorizontalOptions="FillAndExpand" />
-                <ListView x:Name="MemberBalances" HasUnevenRows="True" HorizontalOptions="FillAndExpand">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.3*" />
-                                            <ColumnDefinition Width="0.5*" />
-                                            <ColumnDefinition Width="0.2*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding CurrencyId}" Style="{StaticResource textBigStyle}"></Label>
-                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding BalanceText}" Style="{StaticResource numberBigStyle}"></Label>
-                                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding CurrencyName}" Style="{StaticResource textSmallStyle}"></Label>
-                                        <Label Grid.Row="1" Grid.Column="1" Text="{t:Translate Key=43}" Style="{StaticResource textSmallStyle}" HorizontalOptions="End"></Label>
-                                        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Text=">>" FontAttributes="Bold" FontSize="Large" BackgroundColor="Black" TextColor="White" BorderColor="Black" BorderRadius="20" BorderWidth="1"></Button>
-                                    </Grid>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
-        </ScrollView>
-    </ContentPage>
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BOMobile2.Wallet.DepositWithdraw" 
+             xmlns:t="clr-namespace:Extensions">
     <ContentPage Title="{t:Translate Key=147}">
         <ScrollView Orientation = "Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                 <Label x:Name="labelDepositCurrency" Text="{t:Translate Key=133}" />
                 <Picker x:Name="pickerDepositCurrency" ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="pickerDepositCurrency_SelectedIndexChanged"></Picker>
+                <Label x:Name="labelDepositSelectedCurrency" IsVisible="False"></Label>
                 <Label x:Name="labelDepositBanka" Text="{t:Translate Key=199}" />
                 <Picker x:Name="pickerDepositBanka" ItemDisplayBinding="{Binding AccountName}"></Picker>
                 <Label x:Name="labelDepositIdentityNumber" Text="{t:Translate Key=66}" />
@@ -68,6 +34,7 @@
             <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                 <Label x:Name="labelWithdrawCurrency" Text="{t:Translate Key=133}" />
                 <Picker x:Name="pickerWithdrawCurrency" ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="pickerWithdrawCurrency_SelectedIndexChanged"></Picker>
+                <Label x:Name="labelWithdrawSelectedCurrency" IsVisible="False"></Label>
                 <Label x:Name="labelWithdrawBanka" Text="{t:Translate Key=199}" />
                 <Picker x:Name="pickerWithdrawBanka" ItemDisplayBinding="{Binding AccountName}"></Picker>
                 <Label x:Name="labelWithdrawIdentityNumber" Text="{t:Translate Key=66}" />

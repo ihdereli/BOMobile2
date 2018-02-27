@@ -1,14 +1,8 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
-using BOMobile2.Services.Schema;
 using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
+using ZXing.Mobile;
 
 namespace BOMobile2.Droid
 {
@@ -23,14 +17,26 @@ namespace BOMobile2.Droid
             base.OnCreate(bundle);
             
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
             Acr.UserDialogs.UserDialogs.Init(this);
+
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
+
+            ZXing.Net.Mobile.Forms.Android.Platform.Init();
+
+            MobileBarcodeScanner.Initialize(Application);
+
             Global.Ftp = new Util.FtpProvider();
+            Global.Encrypt = new Util.StringEncyrption();
 
             LoadApplication(new App());
         }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
         {
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

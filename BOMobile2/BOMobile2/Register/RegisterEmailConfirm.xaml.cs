@@ -29,6 +29,23 @@ namespace BOMobile2
             }
         }
 
+        protected async override void OnAppearing()
+        {
+            UserDialogs.Instance.ShowLoading(TranslateExtension.Translate(40) + "...", MaskType.Black);
+
+            if (Global.IsTest)
+            {
+                var data = await Global.DataService.Post<string, TestGetActivationRequest>(new TestGetActivationRequest { MemberId = (int)MemberInfo.Id });
+
+                labelEmailShowKey.IsVisible = true;
+                labelEmailShowKey.Text = data.data;
+            }
+
+            base.OnAppearing();
+
+            UserDialogs.Instance.HideLoading();
+        }
+
         private async void buttonVerifyEmail_Clicked(object sender, EventArgs e)
         {
             var data = await Global.DataService.Post<MemberLoginInfo, MemberRegisterVerificationRequest>(new MemberRegisterVerificationRequest

@@ -11,6 +11,7 @@
                    Placeholder="{t:Translate Key=59}" 
                    VerticalOptions="Start" 
                    HorizontalOptions="Fill" />
+            <Label x:Name="labelActivationShowKey" TextColor="Gray" Text="" IsVisible="False"></Label>
             <Button x:Name="buttonVerifyActivation" Text="{t:Translate Key=60}" Clicked="buttonVerifyActivation_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>

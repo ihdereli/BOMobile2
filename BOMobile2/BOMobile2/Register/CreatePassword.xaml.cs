@@ -56,11 +56,13 @@ namespace BOMobile2
         private async void buttonChangePassword_Clicked(object sender, EventArgs e)
         {
             if (!Validation()) return;
-            
+
+            var encryptedPass = Global.Encrypt.EncryptText(entryPassword.Text);
+
             var data = await Global.DataService.Post<string, MemberUpdatePasswordRequest>(new MemberUpdatePasswordRequest
             {
                 MemberId = (int)MemberInfo.Id, 
-                Password = entryPassword.Text,
+                Password = encryptedPass,
             });
 
             if (data.responseStatus == "ERROR")

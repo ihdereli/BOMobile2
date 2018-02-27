@@ -21,6 +21,7 @@
                        Placeholder="{t:Translate Key=59}" 
                        VerticalOptions="Start" 
                        HorizontalOptions="Fill" />
+                <Label x:Name="labelSMSShowKey" TextColor="Gray" Text="" IsVisible="False"></Label>
                 <Button x:Name="buttonVerificateSMS" Text="{t:Translate Key=61}" Clicked="buttonVerificateSMS_Clicked"></Button>
             </StackLayout>
             <Button x:Name="buttonVerifyLater" Text="{t:Translate Key=67}" Clicked="buttonVerifyLater_Clicked" VerticalOptions="End"></Button>

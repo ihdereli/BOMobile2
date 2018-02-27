@@ -27,7 +27,50 @@ namespace BOMobile2.Services.Schema
         [DataMember(Name = "errorDefiniton")]
         public string errorDefiniton { get; set; }
     }
-    
+
+    [DataContract]
+    public class Currency
+    {
+        [DataMember(Name = "Id")]
+        public string Id { get; set; }
+
+        [DataMember(Name = "Name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "Symbol")]
+        public string Symbol { get; set; }
+
+        [DataMember(Name = "DecimalPlace")]
+        public int DecimalPlace { get; set; }
+
+        [DataMember(Name = "CurrencyRate")]
+        public decimal CurrencyRate { get; set; }
+    }
+
+    [DataContract]
+    public class Bank
+    {
+        [DataMember(Name = "Id")]
+        public int Id { get; set; }
+
+        [DataMember(Name = "Name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "Currency")]
+        public string Currency { get; set; }
+
+        [DataMember(Name = "AccountNo")]
+        public string AccountNo { get; set; }
+
+        public string AccountName
+        {
+            get
+            {
+                return Name + " - " + AccountNo;
+            }
+        }
+    }
+
     [DataContract]
     public class MemberBalance
     {
@@ -39,6 +82,9 @@ namespace BOMobile2.Services.Schema
 
         [DataMember(Name = "CurrencySymbol")]
         public string CurrencySymbol { get; set; }
+
+        [DataMember(Name = "CurrencyRate")]
+        public decimal CurrencyRate { get; set; }
 
         [DataMember(Name = "IsCoin")]
         public bool IsCoin { get; set; }
@@ -55,6 +101,49 @@ namespace BOMobile2.Services.Schema
     }
 
     [DataContract]
+    public class DocumentConfirmation
+    {
+        [DataMember(Name = "Type")]
+        public int Type { get; set; }
+
+        [DataMember(Name = "TypeName")]
+        public string TypeName { get; set; }
+
+        [DataMember(Name = "Id")]
+        public long Id { get; set; }
+
+        [DataMember(Name = "Status")]
+        public int Status { get; set; }
+
+        [DataMember(Name = "StatusText")]
+        public string StatusText { get; set; }
+
+        public string BGColor
+        {
+            get
+            {
+                if (Status == 3)
+                    return "Green";
+                else if (Status == 1)
+                    return "Goldenrod";
+                else if (Status == 2)
+                    return "LightCoral";
+                else
+                    return "Chocolate";
+            }
+        }
+
+        public bool Open
+        {
+            get
+            {
+                return Status == 0 || Status == 2;
+            }
+        }
+    }
+    
+
+   [DataContract]
     public class MemberLoginInfo
     {
         [DataMember(Name = "Token")]
@@ -156,5 +245,36 @@ namespace BOMobile2.Services.Schema
 
         [DataMember(Name = "Name")]
         public string Name { get; set; }
+    }
+
+    [DataContract]
+    public class SendCoinOperation
+    {
+        [DataMember(Name = "Id")]
+        public int Id { get; set; }
+
+        [DataMember(Name = "Address")]
+        public string Address { get; set; }
+
+        [DataMember(Name = "Amount")]
+        public decimal Amount { get; set; }
+
+        [DataMember(Name = "RequestDate")]
+        public DateTime RequestDate { get; set; }
+
+        [DataMember(Name = "ConfirmedDate")]
+        public DateTime ConfirmedDate { get; set; }
+
+        [DataMember(Name = "CompletedDate")]
+        public DateTime CompletedDate { get; set; }
+
+        [DataMember(Name = "Status")]
+        public int Status { get; set; }
+
+        [DataMember(Name = "StatusText")]
+        public string StatusText { get; set; }
+
+        [DataMember(Name = "NoteText")]
+        public string NoteText { get; set; }
     }
 }
